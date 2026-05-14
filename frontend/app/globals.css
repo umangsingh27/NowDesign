@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@700;800&family=Oxanium:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+/* Tailwind v4 theme tokens — replaces tailwind.config.ts */
+@theme {
+  --color-brand-navy:       #020C13;
+  --color-brand-navy-dark:  #041826;
+  --color-brand-navy-mid:   #08304C;
+  --color-brand-blue:       #1579BE;
+  --color-brand-blue-mid:   #4494CB;
+  --color-brand-blue-light: #73AFD8;
+  --color-success: #2BA24C;
+  --color-warning: #D58C00;
+  --color-error:   #E43E2B;
+
+  --font-urbanist: 'Urbanist', sans-serif;
+  --font-oxanium:  'Oxanium', sans-serif;
+
+  --radius-pill: 100px;
+}
+
+:root {
+  --brand-navy-deepest: #020C13;
+  --brand-navy-dark:    #041826;
+  --brand-navy-mid:     #08304C;
+  --brand-blue:         #1579BE;
+  --brand-blue-mid:     #4494CB;
+  --brand-blue-light:   #73AFD8;
+  --brand-white:        #FFFFFF;
+
+  --glass-fill-dark:  rgba(0, 0, 0, 0.60);
+  --glass-fill-light: rgba(255, 255, 255, 0.60);
+  --glass-blur:        blur(16px);
+  --glass-border:      rgba(255, 255, 255, 0.18);
+
+  --success: #2BA24C;
+  --warning: #D58C00;
+  --error:   #E43E2B;
+}
+
+html, body {
+  background-color: var(--brand-navy-deepest);
+  color: #FFFFFF;
+  font-family: 'Oxanium', sans-serif;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Urbanist', sans-serif;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--brand-navy-dark); }
+::-webkit-scrollbar-thumb { background: var(--brand-navy-mid); border-radius: 3px; }

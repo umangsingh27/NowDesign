@@ -1,0 +1,123 @@
+{
+  "version": "1.1",
+  "canvas": {
+    "width": 1080,
+    "height": 1080,
+    "safe_zone": 72,
+    "base_unit": 8,
+    "format": "PNG"
+  },
+  "logos": {
+    "nowpurchase": {
+      "dark": "assets/logos/nowpurchase_white.png",
+      "light": "assets/logos/nowpurchase_dark.png"
+    },
+    "metalcloud": {
+      "dark": "assets/logos/metalcloud_white.png",
+      "light": "assets/logos/metalcloud_dark.png"
+    },
+    "combined": {
+      "dark": "assets/logos/combined_white.png",
+      "light": "assets/logos/combined_dark.png"
+    }
+  },
+  "logo_pill": {
+    "sizing": "hug_content",
+    "padding": {"horizontal": 24, "vertical": 12},
+    "min_width": 160,
+    "max_width": 360,
+    "height": 56,
+    "corner_radius": 100,
+    "top_offset": 72
+  },
+  "themes": {
+    "dark": {
+      "background_base": "#020C13",
+      "surface": "#041826",
+      "accent": "#1579BE",
+      "glass": {
+        "fill": "rgba(0,0,0,0.62)",
+        "blur_radius": 16,
+        "border_radius_card": 24,
+        "border_radius_pill": 100,
+        "border_top_opacity": 0.28,
+        "border_rest_opacity": 0.08,
+        "inner_highlight_opacity": 0.18,
+        "specular_opacity": 0.12,
+        "drop_shadow": "0 8px 32px rgba(0,0,0,0.45)",
+        "pill_fill": "rgba(0,0,0,0.60)",
+        "pill_border": "rgba(255,255,255,0.20)"
+      },
+      "text": {
+        "primary": "#FFFFFF",
+        "secondary": "rgba(255,255,255,0.75)",
+        "tertiary": "rgba(255,255,255,0.50)",
+        "caption": "rgba(255,255,255,0.45)",
+        "accent": "#1579BE",
+        "label_uppercase": "rgba(255,255,255,0.60)"
+      },
+      "background": {
+        "library_path": "assets/backgrounds/dark/",
+        "prompt_style": "dark_industrial",
+        "prompt_base": "dark industrial environment, shallow depth of field with strongly blurred background elements, abstract industrial forms with 3D CGI render quality, subtle dark gradient centre zone, no sharp foreground objects competing with overlaid content, no text, no faces, no logos, very dark overall atmosphere, ambient minimal industrial lighting, 8K resolution",
+        "negative": "bright colors, high contrast, sharp foreground objects, text, logos, faces, watermarks, cartoon, illustration, oversaturated, busy patterns, daylight exterior, harsh lighting",
+        "luminance_max": 0.45,
+        "center_luminance_max": 0.40
+      }
+    },
+    "light": {
+      "background_base": "#F2F2F2",
+      "surface": "#FFFFFF",
+      "accent": "#1579BE",
+      "glass": {
+        "fill": "rgba(255,255,255,0.78)",
+        "blur_radius": 16,
+        "border_radius_card": 24,
+        "border_radius_pill": 100,
+        "border_top_opacity": 0.12,
+        "border_rest_opacity": 0.05,
+        "inner_highlight_opacity": 0.90,
+        "specular_opacity": 0.06,
+        "drop_shadow": "0 8px 32px rgba(0,0,0,0.12)",
+        "pill_fill": "rgba(255,255,255,0.75)",
+        "pill_border": "rgba(0,0,0,0.10)"
+      },
+      "text": {
+        "primary": "#0D0D0D",
+        "secondary": "rgba(0,0,0,0.65)",
+        "tertiary": "rgba(0,0,0,0.45)",
+        "caption": "rgba(0,0,0,0.40)",
+        "accent": "#1579BE",
+        "label_uppercase": "rgba(0,0,0,0.50)"
+      },
+      "background": {
+        "library_path": "assets/backgrounds/light/",
+        "prompt_style": "light_industrial",
+        "prompt_base": "minimal abstract industrial environment, soft diffused light, clean airy atmosphere, light tones, out-of-focus depth of field, abstract 3D CGI industrial forms, subtle texture, sophisticated clean background, bright open atmosphere, ambient light",
+        "negative": "dark backgrounds, heavy shadows, moody atmosphere, night scene, dramatic lighting, high contrast, text, logos, faces, cartoon, illustration",
+        "luminance_min": 0.70,
+        "center_luminance_min": 0.72
+      }
+    }
+  },
+  "typography": {
+    "heading_font": "assets/fonts/Urbanist-ExtraBold.ttf",
+    "heading_bold_font": "assets/fonts/Urbanist-Bold.ttf",
+    "body_font": "assets/fonts/Oxanium-Regular.ttf",
+    "body_medium_font": "assets/fonts/Oxanium-Medium.ttf",
+    "body_semibold_font": "assets/fonts/Oxanium-SemiBold.ttf",
+    "type_scale": {
+      "headline": {"min": 52, "max": 72, "weight": 800},
+      "subheading": {"min": 36, "max": 48, "weight": 700},
+      "body_primary": {"min": 24, "max": 28, "weight": 400},
+      "body_secondary": {"min": 18, "max": 22, "weight": 400},
+      "label": {"min": 14, "max": 16, "weight": 500},
+      "stat": {"min": 60, "max": 96, "weight": 800}
+    }
+  },
+  "validation": {
+    "min_compliance_score": 80,
+    "max_attempts": 3,
+    "wcag_aa_min_contrast": 4.5
+  }
+}

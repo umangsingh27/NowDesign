@@ -1,0 +1,14 @@
+{
+  "glass_renderer": "playwright",
+  "llm_model": "anthropic/claude-sonnet-4",
+  "imagen_model": "imagen-4.0-fast-generate-001",
+  "default_theme": "dark",
+  "default_logo_type": "nowpurchase",
+  "background_library_usage_rate": 0.6,
+  "chromadb_n_results_default": 3,
+  "session_timeout_minutes": 120,
+  "max_kb_entries_per_session": 5,
+  "learning_agent_delay_seconds": 2,
+  "debug_mode": false,
+  "save_all_attempts": true
+}

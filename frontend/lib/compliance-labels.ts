@@ -1,0 +1,16 @@
+export const COMPLIANCE_LABELS: Record<string, { dark: string; light: string }> = {
+  logo_present:         { dark: 'Logo present and visible',             light: 'Logo present and visible' },
+  logo_in_glass_pill:   { dark: 'Logo inside glass pill at top-center', light: 'Logo inside glass pill at top-center' },
+  logo_variant_correct: { dark: 'White logo on dark glass',             light: 'Dark logo on light glass' },
+  text_in_glass:        { dark: 'All text inside glass container',      light: 'All text inside glass container' },
+  glass_depth_visible:  { dark: 'Glass blur/depth effect visible',      light: 'Glass blur/depth effect visible' },
+  no_bare_text:         { dark: 'No text directly on background',       light: 'No text directly on background' },
+  brand_blue_used:      { dark: 'Brand blue (#1579BE) accent present',  light: 'Brand blue (#1579BE) accent present' },
+  headline_readable:    { dark: 'Headline readable at thumbnail size',  light: 'Headline readable at thumbnail size' },
+  no_element_overlap:   { dark: 'No element overlap',                   light: 'No element overlap' },
+  text_contrast_wcag:   { dark: 'Text contrast passes WCAG AA',         light: 'Text contrast passes WCAG AA' },
+  bg_theme_correct:     { dark: 'Background is industrial/foundry',     light: 'Background is clean/minimal industrial' },
+  bg_mood_correct:      { dark: 'Background is dark and moody',         light: 'Background is light and airy' },
+  color_palette:        { dark: 'Navy/dark + blue accent palette',      light: 'White/grey + blue accent palette' },
+  visual_hierarchy:     { dark: 'Visual hierarchy clear on dark glass', light: 'Visual hierarchy clear on light glass' },
+}
