@@ -75,19 +75,100 @@ class ReadSessionConversation(Skill):
     def get_parameters_schema(self) -> dict:
         return {
             "type": "object",
-            "properties": {"session_id": {"type": "string"}},
-            "required": ["session_id"],
+            "properties": {},
+            "required": [],
         }
 
-    def _execute(self, session_id: str) -> dict:
+    def _execute(self) -> dict:
+        # session_id is consumed by Skill.__call__; recover via _current_session_id.
+        session_id = self._current_session_id
         session = self.db_logger.get_session(session_id) or {}
         messages = self.db_logger.get_conversations(session_id) or []
+
+        # If conversations table is sparse (common — pipeline doesn't always
+        # log every LLM turn), synthesize messages from the session record
+        # and skill_invocations so the Learning Agent has substantive input.
+        if not messages and session:
+            messages = self._synthesize_messages(session_id, session)
+
         return {
             "messages": messages,
             "session": session,
             "theme": session.get("theme", ""),
             "logo_type": session.get("logo_type", ""),
         }
+
+    def _synthesize_messages(self, session_id: str, session: dict) -> list[dict]:
+        """Build a pseudo-conversation from brief, layout_plan, and skill_invocations."""
+        msgs: list[dict] = []
+
+        brief_raw = session.get("brief_json", "")
+        if brief_raw:
+            try:
+                brief = json.loads(brief_raw) if isinstance(brief_raw, str) else brief_raw
+            except json.JSONDecodeError:
+                brief = {"raw": brief_raw}
+            msgs.append({
+                "role": "user",
+                "content": f"Brief: {json.dumps(brief, ensure_ascii=False)[:1500]}",
+                "phase": "brief",
+            })
+
+        layout_raw = session.get("layout_plan_json", "")
+        if layout_raw:
+            try:
+                layout = json.loads(layout_raw) if isinstance(layout_raw, str) else layout_raw
+            except json.JSONDecodeError:
+                layout = {}
+            if layout:
+                msgs.append({
+                    "role": "assistant",
+                    "content": f"Planner layout: template={layout.get('template')}, "
+                               f"background={layout.get('background', {}).get('prompt', '')[:200]}, "
+                               f"theme={layout.get('theme')}, logo={layout.get('logo_type')}",
+                    "phase": "planning",
+                })
+
+        # Pull notable skill_invocations from Planner and Critic
+        try:
+            import sqlite3
+            from backend.storage.sqlite_logger import _get_db_path
+            conn = sqlite3.connect(_get_db_path())
+            conn.row_factory = sqlite3.Row
+            rows = conn.execute(
+                "SELECT skill_name, agent_name, output_json FROM skill_invocations "
+                "WHERE session_id = ? AND success = 1 "
+                "AND skill_name IN ('analyze_visual_compliance','score_and_report',"
+                "'check_luminance_zones','check_text_legibility',"
+                "'validate_background_luminance','calculate_layout') "
+                "ORDER BY invoked_at ASC",
+                (session_id,),
+            ).fetchall()
+            conn.close()
+            for r in rows:
+                out = r["output_json"] or ""
+                if len(out) > 800:
+                    out = out[:800] + "..."
+                msgs.append({
+                    "role": "assistant",
+                    "content": f"[{r['agent_name']}.{r['skill_name']}] {out}",
+                    "phase": r["agent_name"] or "pipeline",
+                })
+        except Exception as e:
+            pass
+
+        # Final outcome statement
+        score = session.get("compliance_score")
+        rating = session.get("user_rating")
+        if score is not None:
+            msgs.append({
+                "role": "system",
+                "content": f"Final outcome: compliance_score={score}/100, "
+                           f"user_rating={rating}, state={session.get('state')}",
+                "phase": "outcome",
+            })
+
+        return msgs
 
 
 # ── 2. ClassifyKnowledge ─────────────────────────────────────────────────────

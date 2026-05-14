@@ -18,6 +18,7 @@ Theme determines:
 """
 
 import asyncio
+import base64
 import io
 import json
 import os
@@ -286,6 +287,14 @@ class BackgroundGenerator:
 
         loop = asyncio.get_event_loop()
         image_bytes: bytes = await loop.run_in_executor(None, _sync_call)
+        # Some google-genai SDK versions return base64-ascii bytes rather than
+        # raw PNG. Detect by sniffing the first bytes for a known image magic
+        # and base64-decode when needed.
+        if image_bytes and not image_bytes[:4] in (b"\x89PNG", b"\xff\xd8\xff\xe0", b"\xff\xd8\xff\xe1", b"RIFF"):
+            try:
+                image_bytes = base64.b64decode(image_bytes, validate=False)
+            except Exception:
+                pass
         return Image.open(io.BytesIO(image_bytes)).convert("RGB")
 
     @staticmethod
